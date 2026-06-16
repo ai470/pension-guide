@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пенсионный паспорт: узнайте свою реальную цифру за 15 минут</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0b1638', /* Сделал темнее для контраста */
+                            deep: '#0f182e',
+                            hero: '#121d3e',
+                            soft: '#25355a',
+                            mid: '#1d2c4f',
+                            glass: '#26385e',
+                        },
+                        gold: {
+                            DEFAULT: '#d8c081',
+                            dark: '#af9d6c',
+                        },
+                        cream: {
+                            DEFAULT: '#ffe2ac',
+                            light: '#fff1d8',
+                        },
+                        body: {
+                            gray: '#4b5563', /* чуть темнее для читаемости */
+                        }
+                    },
+                    backgroundImage: {
+                        'grad-navy-hero': 'linear-gradient(263.5deg, #0e1731 20%, #1a2956 100%)', /* Более темный градиент для контраста с белым текстом */
+                        'grad-navy-panel': 'linear-gradient(118deg, #172545 0%, #2e416b 41%, #172646 100%)',
+                        'grad-navy-button': 'linear-gradient(167deg, #172545 4.37%, #384f80 49.09%, #172646 113.06%)',
+                        'grad-gold': 'linear-gradient(135deg, #d8c081 52.58%, #af9d6c 98.92%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --grad-navy-hero: linear-gradient(263.5deg, #0e1731 20%, #1a2956 100%);
+            --grad-navy-panel: linear-gradient(118deg, #172545 0%, #2e416b 41%, #172646 100%);
+            --grad-navy-button: linear-gradient(167deg, #172545 4.37%, #384f80 49.09%, #172646 113.06%);
+            --grad-gold: linear-gradient(135deg, #d8c081 52.58%, #af9d6c 98.92%);
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: #112250;
+            line-height: 1.6;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.125rem;
+            /* Увеличил базовый шрифт (18px) */
+        }
+
+        .content-width {
+            max-width: 1150px;
+            /* Сделал блоки шире */
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .bg-navy-panel {
+            background-color: #172545;
+            background-image: var(--grad-navy-panel);
+        }
+
+        .hero-section {
+            background-image: var(--grad-navy-hero);
+            position: relative;
+            overflow: hidden;
+            background-color: #0b1638;
+            /* Фолбэк цвет */
+        }
+
+        /* Мягкие свечения для фона — сделаны темнее и менее прозрачными */
+        .glow-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(29, 44, 79, 0.4);
+            filter: blur(140px);
+            bottom: -20%;
+            right: -10%;
+            z-index: 0;
+        }
+
+        .glow-2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(12, 19, 38, 0.7);
+            filter: blur(120px);
+            top: 0;
+            left: -10%;
+            z-index: 0;
+        }
+
+        .btn-gold {
+            background-image: var(--grad-gold);
+            color: white;
+            box-shadow: 0 22px 45px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gold:hover {
+            transform: scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-shadow {
+            box-shadow: 0 16px 40px rgba(17, 34, 80, 0.08);
+        }
+
+        .step-number {
+            background-color: #172545;
+            background-image: var(--grad-navy-panel);
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            overflow: hidden;
+            font-size: 1.125rem;
+            /* Увеличил шрифт в таблицах */
+        }
+
+        .table-custom th {
+            background: #f8fafc;
+            color: #112250;
+            font-weight: 800;
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-custom td {
+            padding: 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4b5563;
+        }
+
+        .table-custom tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-custom tr:nth-child(even) td {
+            background-color: #f1f5f9;
+        }
+
+        #ipk-ranges-body tr {
+            transition: all 0.3s ease;
+        }
+
+        #ipk-ranges-body tr td:first-child {
+            border-left: 6px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        #ipk-ranges-body tr.highlighted td {
+            background-color: rgba(216, 192, 129, 0.15) !important;
+            color: #0b1638 !important;
+        }
+
+        #ipk-ranges-body tr.highlighted td:first-child {
+            border-left: 6px solid #af9d6c;
+        }
+
+        .input-line {
+            display: inline-block;
+            border-bottom: 2px dashed #af9d6c;
+            min-width: 80px;
+            margin: 0 4px;
+        }
+
+        /* Убираем стрелочки вверх-вниз у числовых инпутов */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-expert-mobile-crop {
+                clip-path: ellipse(75% 65% at 50% 35%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HERO SECTION (Титульная страница на всю высоту) -->
+    <section class="hero-section min-h-screen flex items-center pt-20 pb-10 lg:py-0 w-full">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div
+            class="max-w-[1200px] w-full mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <!-- Текстовый блок -->
+            <div class="w-full lg:max-w-[55%] lg:flex-shrink-0 text-center lg:text-left flex flex-col items-center lg:items-start pt-10 lg:pt-0 relative z-20">
+
+                <h1 class="text-5xl lg:text-[64px] font-extrabold leading-[1.1] text-white mb-8 drop-shadow-lg">
+                    Пенсионный паспорт: <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-gold-dark mt-2 block pb-2">узнайте
+                        свою реальную цифру</span>
+                </h1>
+
+                <p
+                    class="text-xl lg:text-2xl text-white/90 font-medium leading-relaxed mb-12 max-w-[600px] drop-shadow-md">
+                    Бесплатный гайд, с помощью которого вы за 15 минут узнаете размер своей будущей пенсии без походов в
+                    ПФР.
+                </p>
+
+                <a href="#start"
+                    class="btn-gold inline-flex items-center justify-center gap-4 rounded-full px-10 py-5 text-[18px] font-extrabold uppercase tracking-widest w-full sm:w-auto">
+                    Начать расчёт
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Изображение эксперта -->
+            <!-- Мобильная версия (по центру, в потоке) -->
+            <div class="lg:hidden w-full max-w-[400px] mt-10 relative flex justify-center">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent rounded-full blur-3xl transform scale-90 translate-y-10">
+                </div>
+                <img src="tatyana_hero.png" alt="Татьяна Волкова"
+                    class="w-full object-contain hero-expert-mobile-crop drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <!-- Floating badge on mobile -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 rounded-full border border-white/20 px-5 py-2.5 bg-navy/85 backdrop-blur-md shadow-xl w-[90%] max-w-[320px]">
+                    <div class="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_rgba(216,192,129,0.8)] shrink-0 animate-pulse"></div>
+                    <div class="text-left">
+                        <strong class="block text-sm font-extrabold text-white leading-tight">Татьяна Волкова</strong>
+                        <span class="block text-[11px] text-white/70 font-semibold mt-0.5 leading-snug">эксперт по созданию личного капитала</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Десктопная версия (прижата к самому низу экрана) -->
+        <div class="hidden lg:flex lg:absolute lg:bottom-0 lg:h-[95vh] lg:w-[48%] lg:max-w-[650px] lg:items-end lg:justify-end z-10"
+             style="right: max(0.5rem, calc((100% - 1200px) / 2 - 6rem));">
+            <div
+                class="absolute inset-0 bg-gradient-to-tr from-gold/10 to-transparent rounded-full blur-3xl transform scale-75 translate-y-20">
+            </div>
+            <img src="tatyana_hero.png" alt="Татьяна Волкова"
+                class="w-auto h-full max-h-[90vh] object-contain object-bottom relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <!-- Floating badge on desktop -->
+            <div class="absolute bottom-20 left-0 xl:-left-10 z-20 flex items-center gap-3.5 rounded-full border border-white/20 px-6 py-3.5 bg-navy-deep/85 backdrop-blur-md shadow-2xl max-w-[340px]">
+                <div class="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_rgba(216,192,129,0.8)] shrink-0 animate-pulse"></div>
+                <div class="text-left">
+                    <strong class="block text-base font-extrabold text-white leading-tight">Татьяна Волкова</strong>
+                    <span class="block text-[13px] text-white/70 font-semibold mt-0.5 leading-snug">эксперт по созданию личного капитала</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВСТУПЛЕНИЕ -->
+    <section id="start" class="py-24 lg:py-32 bg-[#fafbfc]">
+        <div class="content-width">
+            <div class="text-center mb-16">
+                <span class="text-gold-dark font-bold tracking-widest uppercase text-base">Введение</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mt-4 mb-8">Зачем вам это знать?</h2>
+            </div>
+
+            <div class="bg-white rounded-3xl p-10 lg:p-14 card-shadow relative overflow-hidden border border-slate-100">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-bl-full -z-0"></div>
+
+                <p class="text-2xl lg:text-3xl font-extrabold text-navy leading-snug mb-10 relative z-10">
+                    Большинство людей не знают свою пенсию. И боятся узнать.
+                </p>
+
+                <div class="space-y-6 text-body-gray text-xl relative z-10 leading-relaxed">
+                    <p>Спросите любого знакомого: «Какая у тебя будет пенсия?» В 9 случаях из 10 вы услышите:</p>
+
+                    <div
+                        class="pl-8 border-l-4 border-gold-dark/40 py-3 space-y-4 italic text-navy-soft text-xl font-medium bg-slate-50 rounded-r-2xl">
+                        <p>— «Ну, наверное, тысяч 20–25…»</p>
+                        <p>— «Понятия не имею»</p>
+                        <p>— «Стараюсь об этом не думать»</p>
+                    </div>
+
+                    <p>Это не лень и не глупость. Это защитная реакция. Мозг избегает информации, которая может
+                        расстроить.</p>
+
+                    <div
+                        class="bg-red-50 text-red-900 p-8 rounded-2xl font-semibold border border-red-100 text-xl shadow-sm">
+                        Но вот проблема: <strong class="text-red-700 bg-red-100 px-2 py-1 rounded">пока вы не знаете
+                            свою цифру — вы не можете ничего изменить.</strong>
+                    </div>
+
+                    <p>Это как болезнь, которую боишься диагностировать. Чем дольше тянешь — тем меньше вариантов
+                        лечения.</p>
+
+                    <p class="font-extrabold text-navy mt-10 text-2xl border-b-2 border-gold-dark pb-4 inline-block">
+                        Хорошая новость: узнать свою реальную пенсию можно за 15 минут.</p>
+                    <p>Без похода в Пенсионный фонд. Без звонков и очередей. Только вы, телефон и Госуслуги.</p>
+                </div>
+            </div>
+
+            <!-- Что вы получите -->
+            <div class="mt-16 bg-navy-hero text-white rounded-3xl p-10 lg:p-14 card-shadow relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-navy-soft rounded-full blur-3xl opacity-40">
+                </div>
+
+                <h3 class="text-3xl font-bold mb-8 relative z-10">Что вы получите в конце этого гайда</h3>
+                <p class="text-white/80 mb-10 text-xl relative z-10">После выполнения трёх шагов у вас на руках будет:
+                </p>
+
+                <div class="space-y-5 relative z-10">
+                    <div
+                        class="flex items-start gap-5 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <div
+                            class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0 mt-1 text-xl">
+                            ✓</div>
+                        <div>
+                            <strong class="block text-2xl text-white mb-2">Ваша выписка СЗИ-ИЛС</strong>
+                            <span class="text-white/70 text-lg">Официальный документ со всеми данными о стаже и
+                                накоплениях</span>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-start gap-5 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <div
+                            class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0 mt-1 text-xl">
+                            ✓</div>
+                        <div>
+                            <strong class="block text-2xl text-white mb-2">Ваш текущий ИПК</strong>
+                            <span class="text-white/70 text-lg">Количество пенсионных баллов, которые вы уже
+                                заработали</span>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-start gap-5 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                        <div
+                            class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0 mt-1 text-xl">
+                            ✓</div>
+                        <div>
+                            <strong class="block text-2xl text-white mb-2">Ваша расчётная пенсия</strong>
+                            <span class="text-white/70 text-lg">Конкретная сумма в рублях на сегодняшний день</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОСНОВНЫЕ ШАГИ -->
+    <section class="py-24 lg:py-32 bg-white relative">
+        <div class="content-width">
+            <div class="text-center mb-20">
+                <span class="text-gold-dark font-bold tracking-widest uppercase text-base">Инструкция</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mt-4 text-navy">Три шага к вашей цифре</h2>
+                <p class="text-body-gray mt-6 text-xl max-w-2xl mx-auto">Понадобится только смартфон с доступом к
+                    Госуслугам.</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- ШАГ 1 -->
+                <div class="relative pl-0 lg:pl-16">
+                    <div
+                        class="hidden lg:flex absolute left-0 top-0 w-20 h-20 step-number text-white font-extrabold text-3xl rounded-full items-center justify-center shadow-xl -translate-x-1/2 border-4 border-white">
+                        1</div>
+
+                    <div class="bg-slate-50 border border-slate-100 rounded-3xl p-10 lg:p-14 card-shadow">
+                        <div class="flex items-center gap-5 mb-8">
+                            <div
+                                class="lg:hidden w-16 h-16 step-number text-white font-extrabold text-2xl rounded-full flex items-center justify-center shadow-md">
+                                1</div>
+                            <div>
+                                <h3 class="text-3xl font-extrabold text-navy">Получите выписку на Госуслугах</h3>
+                                <span
+                                    class="inline-block mt-3 bg-cream-light text-navy font-bold text-sm px-4 py-1.5 rounded-full uppercase tracking-wider">Время:
+                                    3 минуты</span>
+                            </div>
+                        </div>
+
+                        <div class="grid lg:grid-cols-2 gap-10 mt-10">
+                            <ul class="space-y-5 text-xl">
+                                <li class="flex items-start gap-4">
+                                    <span class="text-gold-dark font-black text-2xl">1.</span>
+                                    <span class="text-body-gray pt-1">Откройте сайт <a href="http://gosuslugi.ru"
+                                            target="_blank"
+                                            class="text-blue-600 font-bold hover:underline">gosuslugi.ru</a> или
+                                        приложение</span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="text-gold-dark font-black text-2xl">2.</span>
+                                    <span class="text-body-gray pt-1">Войдите в личный кабинет</span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="text-gold-dark font-black text-2xl">3.</span>
+                                    <span class="text-body-gray pt-1">В поиске введите: <br><strong
+                                            class="text-navy bg-white px-2 py-1 rounded shadow-sm inline-block mt-2">«Извещение
+                                            о состоянии лицевого счёта»</strong></span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="text-gold-dark font-black text-2xl">4.</span>
+                                    <span class="text-body-gray pt-1">Нажмите <strong class="text-navy">«Получить
+                                            услугу»</strong></span>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <span class="text-gold-dark font-black text-2xl">5.</span>
+                                    <span class="text-body-gray pt-1">Через несколько секунд появится документ — выписка
+                                        СЗИ-ИЛС</span>
+                                </li>
+                            </ul>
+
+                            <div
+                                class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="text-navy-soft">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-extrabold text-navy text-2xl">Что такое СЗИ-ИЛС?</h4>
+                                </div>
+                                <p class="text-lg text-body-gray leading-relaxed font-medium">
+                                    Это официальная справка из СФР, в которой собрано всё: ваш стаж, ваши отчисления по
+                                    годам, ваши пенсионные баллы. Это «рентген» вашей будущей пенсии.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="mt-10 text-center py-6 bg-blue-50 text-blue-900 rounded-2xl font-bold text-xl border border-blue-100 shadow-inner">
+                            Сохраните документ — он понадобится на следующем шаге.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ШАГ 2 -->
+                <div class="relative pl-0 lg:pl-16">
+                    <div
+                        class="hidden lg:flex absolute left-0 top-0 w-20 h-20 step-number text-white font-extrabold text-3xl rounded-full items-center justify-center shadow-xl -translate-x-1/2 border-4 border-white">
+                        2</div>
+
+                    <div class="bg-white border border-slate-200 rounded-3xl p-10 lg:p-14 card-shadow">
+                        <div class="flex items-center gap-5 mb-8">
+                            <div
+                                class="lg:hidden w-16 h-16 step-number text-white font-extrabold text-2xl rounded-full flex items-center justify-center shadow-md">
+                                2</div>
+                            <div>
+                                <h3 class="text-3xl font-extrabold text-navy">Найдите свой ИПК</h3>
+                                <span
+                                    class="inline-block mt-3 bg-cream-light text-navy font-bold text-sm px-4 py-1.5 rounded-full uppercase tracking-wider">Время:
+                                    2 минуты</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xl text-body-gray mb-6">Откройте выписку и найдите строку:</p>
+                        <div
+                            class="bg-slate-50 py-6 px-8 rounded-2xl border-2 border-slate-200 font-extrabold text-center text-xl lg:text-2xl text-navy mb-10 shadow-sm">
+                            «Величина индивидуального пенсионного коэффициента (ИПК)»
+                        </div>
+
+                        <p class="text-body-gray mb-8 text-xl font-medium">Это число — количество пенсионных баллов,
+                            которые вы накопили за всю трудовую жизнь.</p>
+
+                        <div
+                            class="bg-navy-hero text-white rounded-3xl p-8 text-center shadow-xl mb-12 transform scale-105 flex flex-wrap items-center justify-center gap-2">
+                            <span class="text-2xl lg:text-3xl font-extrabold">Введите вашу цифру:</span>
+                            <input type="number" id="ipk-input"
+                                class="bg-transparent border-b-4 border-gold-dark outline-none text-gold font-black text-3xl w-36 px-1 text-center"
+                                placeholder="0" min="0">
+                            <span class="text-2xl lg:text-3xl font-extrabold">баллов</span>
+                        </div>
+
+                        <h4 class="font-extrabold text-navy mb-6 text-2xl">Что означает это число:</h4>
+                        <div class="overflow-x-auto shadow-sm rounded-xl">
+                            <table class="table-custom min-w-[600px]">
+                                <thead>
+                                    <tr>
+                                        <th class="w-1/3">Ваш ИПК</th>
+                                        <th>Что это значит</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ipk-ranges-body">
+                                    <tr data-min="0" data-max="29.99">
+                                        <td class="font-extrabold text-navy text-xl">Менее 30</td>
+                                        <td class="font-medium">Минимальная пенсия. Возможен отказ в назначении
+                                            страховой пенсии</td>
+                                    </tr>
+                                    <tr data-min="30" data-max="60">
+                                        <td class="font-extrabold text-navy text-xl">30–60</td>
+                                        <td class="font-medium">Пенсия ниже средней по стране</td>
+                                    </tr>
+                                    <tr data-min="60.01" data-max="100">
+                                        <td class="font-extrabold text-navy text-xl">60–100</td>
+                                        <td class="font-medium">Средняя пенсия</td>
+                                    </tr>
+                                    <tr data-min="100.01" data-max="150">
+                                        <td class="font-extrabold text-navy text-xl">100–150</td>
+                                        <td class="font-medium">Пенсия выше средней</td>
+                                    </tr>
+                                    <tr data-min="150.01" data-max="99999">
+                                        <td class="font-extrabold text-navy text-xl">Более 150</td>
+                                        <td class="font-medium text-gold-dark">Хорошая пенсия по меркам системы, но есть
+                                            потолок</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            class="mt-10 flex gap-6 bg-orange-50 border-2 border-orange-200 p-8 rounded-3xl text-orange-900 shadow-sm">
+                            <div class="text-orange-600 shrink-0 mt-1">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium leading-relaxed">
+                                <strong class="block mb-2 text-orange-950 text-xl font-bold">Важно:</strong>
+                                Даже если у вас высокий ИПК — это не гарантия достойной пенсии. Стоимость одного балла
+                                устанавливается государством и может не поспевать за реальной инфляцией. Об этом
+                                подробно — в курсе «Пенсионный капитал».
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ШАГ 3 -->
+                <div class="relative pl-0 lg:pl-16">
+                    <div
+                        class="hidden lg:flex absolute left-0 top-0 w-20 h-20 step-number text-white font-extrabold text-3xl rounded-full items-center justify-center shadow-xl -translate-x-1/2 border-4 border-white">
+                        3</div>
+
+                    <div class="bg-slate-50 border border-slate-100 rounded-3xl p-10 lg:p-14 card-shadow">
+                        <div class="flex items-center gap-5 mb-8">
+                            <div
+                                class="lg:hidden w-16 h-16 step-number text-white font-extrabold text-2xl rounded-full flex items-center justify-center shadow-md">
+                                3</div>
+                            <div>
+                                <h3 class="text-3xl font-extrabold text-navy">Рассчитайте свою пенсию</h3>
+                                <span
+                                    class="inline-block mt-3 bg-cream-light text-navy font-bold text-sm px-4 py-1.5 rounded-full uppercase tracking-wider">Время:
+                                    1 минута</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xl text-body-gray mb-6 font-medium">Формула простая:</p>
+
+                        <div class="bg-navy-panel p-8 rounded-3xl text-center text-white mb-10 shadow-xl">
+                            <span class="block text-2xl lg:text-3xl font-extrabold tracking-wide"
+                                style="background-image: var(--grad-navy-panel);">Пенсия = Фикс. выплата + (ваш ИПК ×
+                                стоимость балла)</span>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-6 mb-10">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                                <div class="text-lg text-body-gray mb-2 font-medium">Фиксированная выплата (2026):</div>
+                                <div class="text-3xl font-black text-navy">9 584,69 ₽</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                                <div class="text-lg text-body-gray mb-2 font-medium">Стоимость одного балла (2026):
+                                </div>
+                                <div class="text-3xl font-black text-navy">156,76 ₽</div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white border-4 border-gold rounded-3xl p-8 lg:p-12 text-center relative overflow-hidden mb-12 shadow-lg">
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gold/10 rounded-bl-full -z-0"></div>
+                            <h4 class="font-extrabold text-navy mb-6 relative z-10 text-2xl">Подставьте свой ИПК:</h4>
+                            <div
+                                class="text-xl lg:text-2xl font-bold text-body-gray relative z-10 flex flex-wrap justify-center items-center gap-3">
+                                <span>Моя пенсия =</span>
+                                <span>9 584,69 + </span>
+                                <span class="inline-flex items-center mx-2 text-navy-soft">(<input type="number"
+                                        id="ipk-input-2"
+                                        class="bg-transparent border-b-4 border-navy outline-none text-navy font-bold w-36 text-center"
+                                        placeholder="0" min="0"> × 156,76)</span>
+                                <span>=</span>
+                                <strong id="pension-result"
+                                    class="text-3xl text-navy bg-slate-100 px-8 py-3 rounded-xl border-2 border-slate-200 min-w-[260px] h-[64px] inline-flex items-center justify-center shadow-inner">0</strong>
+                                <span class="font-black text-navy text-2xl">₽/мес</span>
+                            </div>
+                        </div>
+
+                        <h4 class="font-extrabold text-navy mb-6 text-2xl">Примеры для ориентира</h4>
+                        <div class="overflow-x-auto shadow-sm rounded-xl">
+                            <table class="table-custom min-w-[700px]">
+                                <thead>
+                                    <tr>
+                                        <th>ИПК</th>
+                                        <th>Расчёт</th>
+                                        <th>Пенсия</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-black text-navy text-xl">40 баллов</td>
+                                        <td class="text-lg text-body-gray font-medium">9 584,69 + (40 × 156,76)</td>
+                                        <td class="font-black text-navy text-2xl">15 885,09 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black text-navy text-xl">70 баллов</td>
+                                        <td class="text-lg text-body-gray font-medium">9 584,69 + (70 × 156,76)</td>
+                                        <td class="font-black text-navy text-2xl">20 557,89 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black text-navy text-xl">100 баллов</td>
+                                        <td class="text-lg text-body-gray font-medium">9 584,69 + (100 × 156,76)</td>
+                                        <td class="font-black text-navy text-2xl">25 260,69 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black text-navy text-xl">130 баллов</td>
+                                        <td class="text-lg text-body-gray font-medium">9 584,69 + (130 × 156,76)</td>
+                                        <td class="font-black text-navy text-2xl">29 963,49 ₽</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-black text-navy text-xl">160 баллов</td>
+                                        <td class="text-lg text-body-gray font-medium">9 584,69 + (160 × 156,76)</td>
+                                        <td class="font-black text-navy text-2xl">34 666,29 ₽</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            class="mt-12 text-center text-2xl text-navy-deep font-black bg-gold/20 py-6 px-4 rounded-2xl border border-gold/40">
+                            Запишите вашу цифру. Это ваша пенсия при текущих условиях.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЧЕСТНЫЙ РАЗГОВОР -->
+    <section class="py-24 lg:py-32 bg-slate-50 border-t border-slate-200">
+        <div class="content-width">
+            <div class="text-center mb-20">
+                <span class="text-gold-dark font-bold tracking-widest uppercase text-base">А теперь</span>
+                <h2 class="text-4xl lg:text-5xl font-extrabold mt-4 text-navy">Честный разговор</h2>
+                <p class="text-2xl text-navy-soft font-bold mt-6">Посмотрите на свою цифру. И ответьте себе на три
+                    вопроса.</p>
+            </div>
+
+            <!-- Вопрос 1 -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-extrabold text-navy mb-8">Вопрос 1. Хватит ли этих денег на жизнь, которую вы
+                    хотите?</h3>
+                <p class="text-body-gray mb-8 text-xl font-medium">Посчитайте свои базовые расходы сейчас:</p>
+
+                <div class="bg-white rounded-3xl shadow-md border border-slate-200 overflow-hidden mb-10">
+                    <table class="w-full text-left text-xl">
+                        <tbody>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy w-1/2">Еда и продукты</td>
+                                <td class="p-5 lg:p-6 bg-slate-50 w-1/2"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy">ЖКХ и связь</td>
+                                <td class="p-5 lg:p-6 bg-slate-50"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy">Лекарства и здоровье</td>
+                                <td class="p-5 lg:p-6 bg-slate-50"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy">Транспорт</td>
+                                <td class="p-5 lg:p-6 bg-slate-50"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy">Одежда и быт</td>
+                                <td class="p-5 lg:p-6 bg-slate-50"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="border-b border-slate-100">
+                                <td class="p-5 lg:p-6 font-bold text-navy">Отдых и развлечения</td>
+                                <td class="p-5 lg:p-6 bg-slate-50"><input type="number"
+                                        class="expense-input bg-transparent border-b-2 border-dashed border-gold-dark outline-none text-navy font-bold text-xl w-36 px-1 text-center"
+                                        placeholder="0" min="0"> ₽</td>
+                            </tr>
+                            <tr class="bg-cream-light text-navy">
+                                <td class="p-6 lg:p-8 font-black text-2xl">Итого</td>
+                                <td class="p-6 lg:p-8 font-black text-2xl"><span id="expenses-total"
+                                        class="font-black text-2xl text-navy">0</span> ₽</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-red-50/40 border border-red-100 rounded-3xl p-8 lg:p-10 shadow-sm flex gap-6 items-start">
+                    <div class="text-red-600 shrink-0 hidden sm:block mt-1">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-grow w-full">
+                        <h4 class="text-2xl font-black text-navy mb-5">Теперь сравните эту сумму с вашей расчётной пенсией</h4>
+                        <div class="space-y-4 text-xl text-navy-soft leading-relaxed mb-6">
+                            <p class="font-extrabold">
+                                Разница — это <span class="bg-red-600 text-white px-3 py-1.5 rounded-lg font-black shadow-md mx-1 whitespace-nowrap text-lg">ваш пенсионный разрыв</span>.
+                            </p>
+                            <p class="text-slate-600 text-lg font-medium">
+                                Сумма, которой будет не хватать каждый месяц. Не один раз — каждый месяц, 20–30 лет подряд.
+                            </p>
+                        </div>
+                        <div id="gap-calc-result" class="p-6 bg-white rounded-2xl border border-red-100 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm" style="display: none;">
+                            <span class="text-xl font-bold text-slate-800">Ваш ежемесячный пенсионный разрыв:</span>
+                            <div class="text-right">
+                                <span id="gap-value" class="text-3xl font-black text-red-600 bg-red-50 border border-red-200 px-4 py-2 rounded-xl inline-block">0 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-extrabold text-navy mb-8">Вопрос 2. Что будет с этой суммой через 15–20 лет?
+                </h3>
+                <p class="text-body-gray mb-8 text-xl font-medium leading-relaxed">Ваша расчётная пенсия указана в
+                    сегодняшних ценах. Но к моменту выхода на пенсию цены вырастут.</p>
+                <p class="font-extrabold text-navy mb-6 text-xl bg-slate-100 py-3 px-6 inline-block rounded-xl">При
+                    средней инфляции 7% в год:</p>
+
+                <div class="overflow-x-auto mb-8 shadow-md rounded-2xl">
+                    <table class="table-custom min-w-[700px]">
+                        <thead>
+                            <tr>
+                                <th>Пенсия сегодня</th>
+                                <th>Покупательная способность через 15 лет</th>
+                                <th>Через 20 лет</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-black text-navy text-2xl bg-white">15 000 ₽</td>
+                                <td class="font-medium text-lg">Эквивалент 5 400 ₽</td>
+                                <td class="font-medium text-lg text-red-700">Эквивалент 3 900 ₽</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black text-navy text-2xl bg-white">20 000 ₽</td>
+                                <td class="font-medium text-lg">Эквивалент 7 200 ₽</td>
+                                <td class="font-medium text-lg text-red-700">Эквивалент 5 200 ₽</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black text-navy text-2xl bg-white">25 000 ₽</td>
+                                <td class="font-medium text-lg">Эквивалент 9 100 ₽</td>
+                                <td class="font-medium text-lg text-red-700">Эквивалент 6 500 ₽</td>
+                            </tr>
+                            <tr>
+                                <td class="font-black text-navy text-2xl bg-white">30 000 ₽</td>
+                                <td class="font-medium text-lg">Эквивалент 10 900 ₽</td>
+                                <td class="font-medium text-lg text-red-700">Эквивалент 7 800 ₽</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div
+                    class="bg-navy p-8 lg:p-10 rounded-3xl text-white text-center text-2xl lg:text-3xl font-bold mb-8 shadow-xl">
+                    Пенсия 22 000 ₽ сегодня — это покупательная способность <strong
+                        class="text-gold text-4xl lg:text-5xl block mt-4 font-black">5 700 ₽</strong> <span
+                        class="text-xl opacity-80 mt-2 block">через 20 лет.</span>
+                </div>
+
+                <p class="text-lg text-body-gray italic text-center max-w-3xl mx-auto font-medium">Да, государство
+                    индексирует пенсию. Но исторически индексация отстаёт от реальной инфляции. Подробный разбор с
+                    цифрами — в Модуле 1 курса «Пенсионный капитал».</p>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div>
+                <h3 class="text-3xl font-extrabold text-navy mb-8">Вопрос 3. Что вы собираетесь с этим делать?</h3>
+                <p class="text-body-gray mb-10 text-xl font-medium leading-relaxed">У вас теперь есть то, чего нет у 90%
+                    людей: <strong class="text-navy font-black bg-gold/20 px-2 py-1 rounded">конкретная цифра.</strong>
+                    Не абстрактная тревога, а факт. Дальше есть два пути:</p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-10 rounded-3xl border border-slate-200 card-shadow">
+                        <div
+                            class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 font-black text-3xl mb-8">
+                            А</div>
+                        <h4 class="font-extrabold text-navy text-2xl mb-4">Оставить как есть</h4>
+                        <p class="text-body-gray text-lg leading-relaxed font-medium">Закрыть этот документ,
+                            расстроиться и забыть. Через год — снова вспомнить и снова расстроиться. Через пять лет —
+                            пожалеть, что ничего не сделали.</p>
+                    </div>
+
+                    <div
+                        class="bg-gradient-to-br from-cream-light to-white p-10 rounded-3xl border-4 border-gold-dark card-shadow relative overflow-hidden transform md:-translate-y-4 shadow-2xl">
+                        <div class="absolute -right-6 -top-6 text-[150px] text-gold/10 font-black leading-none">Б</div>
+                        <div
+                            class="w-16 h-16 bg-gold-dark rounded-full flex items-center justify-center text-white font-black text-3xl mb-8 relative z-10 shadow-lg">
+                            Б</div>
+                        <h4 class="font-extrabold text-navy text-2xl mb-4 relative z-10">Взять ответственность</h4>
+                        <p class="text-navy-soft font-bold text-lg leading-relaxed relative z-10">Использовать эту цифру
+                            как точку старта. Рассчитать, сколько нужно именно вам. Подобрать инструменты. Составить
+                            план. И начать действовать прямо сейчас.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КУРС (Финальный блок) -->
+    <section class="py-32 bg-white relative overflow-hidden">
+        <!-- Декоративные фоновые элементы -->
+        <div
+            class="absolute left-0 top-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-100 via-white to-white -z-10">
+        </div>
+
+        <div class="max-w-[1150px] mx-auto px-6 relative z-10">
+            <div
+                class="bg-navy-hero rounded-[3rem] p-10 lg:p-16 text-center text-white card-shadow relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 w-80 h-80 bg-navy-soft rounded-full blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-80 h-80 bg-gold/20 rounded-full blur-3xl opacity-50 -translate-x-1/2 translate-y-1/2">
+                </div>
+
+                <h2 class="text-4xl lg:text-[54px] font-extrabold leading-[1.1] mb-8 relative z-10 drop-shadow-md">
+                    Именно для этого создан курс <br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-gold to-gold-dark mt-4 block pb-2 text-5xl lg:text-[64px]">«Пенсионный
+                        капитал»</span>
+                </h2>
+
+                <p
+                    class="text-xl lg:text-2xl text-white/90 font-medium mb-12 relative z-10 max-w-[700px] mx-auto leading-relaxed">
+                    Вы только что сделали первый шаг — узнали свою цифру. В курсе вы сделаете остальные:
+                </p>
+
+                <div
+                    class="bg-white/5 backdrop-blur-xl border border-white/20 rounded-3xl overflow-hidden mb-12 relative z-10 text-left shadow-2xl">
+                    <table class="w-full text-lg lg:text-xl">
+                        <tbody>
+                            <tr class="border-b border-white/10">
+                                <td
+                                    class="p-6 lg:p-8 w-20 text-center font-black text-white/30 border-r border-white/10 text-2xl">
+                                    1</td>
+                                <td class="p-6 lg:p-8 text-white font-medium">Узнать свою реальную пенсию</td>
+                                <td class="p-6 lg:p-8 font-black text-gold whitespace-nowrap text-right">Вы уже здесь
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white/10 bg-white/[0.02]">
+                                <td
+                                    class="p-6 lg:p-8 text-center font-black text-white/30 border-r border-white/10 text-2xl">
+                                    2</td>
+                                <td class="p-6 lg:p-8 text-white/90">Рассчитать пенсию в 3 сценариях с учётом инфляции
+                                </td>
+                                <td class="p-6 lg:p-8 font-bold text-white/50 whitespace-nowrap text-right">Модуль 2
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td
+                                    class="p-6 lg:p-8 text-center font-black text-white/30 border-r border-white/10 text-2xl">
+                                    3</td>
+                                <td class="p-6 lg:p-8 text-white/90">Определить целевой капитал под вашу желаемую жизнь
+                                </td>
+                                <td class="p-6 lg:p-8 font-bold text-white/50 whitespace-nowrap text-right">Модуль 3
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white/10 bg-white/[0.02]">
+                                <td
+                                    class="p-6 lg:p-8 text-center font-black text-white/30 border-r border-white/10 text-2xl">
+                                    4</td>
+                                <td class="p-6 lg:p-8 text-white/90">Подобрать инструменты под ваш риск-профиль</td>
+                                <td class="p-6 lg:p-8 font-bold text-white/50 whitespace-nowrap text-right">Модуль 3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    class="p-6 lg:p-8 text-center font-black text-white/30 border-r border-white/10 text-2xl">
+                                    5</td>
+                                <td class="p-6 lg:p-8 text-white/90">Составить пошаговый план на 90 дней</td>
+                                <td class="p-6 lg:p-8 font-bold text-white/50 whitespace-nowrap text-right">Модуль 4
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div
+                    class="inline-block border-2 border-gold/40 bg-white/10 backdrop-blur px-10 py-6 rounded-2xl text-2xl lg:text-3xl font-extrabold text-white mb-12 relative z-10 shadow-[0_0_30px_rgba(216,192,129,0.2)]">
+                    Вы узнали диагноз. Курс — это лечение.
+                </div>
+
+                <div class="relative z-10 pb-4">
+                    <a href="https://pensia.monterium-edu.ru/kurs/?utm_source=gaid&utm_medium=bonus_zaaktivnost&utm_campaign=2026"
+                        target="_blank" rel="noopener noreferrer"
+                        class="btn-gold inline-flex items-center justify-center gap-4 rounded-full px-12 py-6 text-[18px] lg:text-[20px] font-extrabold uppercase tracking-widest w-full sm:w-auto">
+                        Подробнее о программе
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer / Соцсети -->
+            <div class="mt-16 text-center text-body-gray text-base font-medium">
+                <p class="mb-6 text-navy font-bold text-lg">Присоединяйтесь к нам в соцсетях:</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <!-- Telegram -->
+                    <a href="https://t.me/+nfQKi7Kjr4MwYTVi" target="_blank" rel="noopener noreferrer"
+                        class="flex h-11 items-center gap-2.5 rounded-full bg-slate-100 hover:bg-navy px-5 text-base font-bold text-navy hover:text-white transition-all duration-200 hover:scale-105 shadow-sm border border-slate-200/50">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                            <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24Zm5.6 7.9-1.8 8.5c-.1.6-.5.8-1 .5l-2.8-2.1-1.4 1.3c-.1.2-.3.3-.6.3l.2-2.9 5.2-4.7c.2-.2-.1-.3-.4-.1l-6.4 4-2.8-.9c-.6-.2-.6-.6.1-.8l10.9-4.2c.5-.2 1 .1.8 1.1Z" />
+                        </svg>
+                        Telegram
+                    </a>
+                    <!-- YouTube -->
+                    <a href="https://youtube.com/@capitalvolkova" target="_blank" rel="noopener noreferrer"
+                        class="flex h-11 items-center gap-2.5 rounded-full bg-slate-100 hover:bg-navy px-5 text-base font-bold text-navy hover:text-white transition-all duration-200 hover:scale-105 shadow-sm border border-slate-200/50">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12c0 2 .2 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.3-1.9.5-3.8.5-5.8s-.2-3.9-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z" />
+                        </svg>
+                        YouTube
+                    </a>
+                    <!-- VK -->
+                    <a href="https://vk.com/volkovacapital" target="_blank" rel="noopener noreferrer"
+                        class="flex h-11 items-center gap-2.5 rounded-full bg-slate-100 hover:bg-navy px-5 text-base font-bold text-navy hover:text-white transition-all duration-200 hover:scale-105 shadow-sm border border-slate-200/50">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                            <path d="M13.2 17.5c-5.1 0-8-3.5-8.1-9.3h2.6c.1 4.2 1.9 6 3.4 6.4V8.2h2.5v3.7c1.5-.2 3-1.8 3.5-3.7h2.5a7 7 0 0 1-3.2 4.6 7.2 7.2 0 0 1 3.8 4.7h-2.8c-.5-1.8-1.9-3.2-3.8-3.4v3.4h-.4Z" />
+                        </svg>
+                        VK
+                    </a>
+                    <!-- Дзен -->
+                    <a href="https://dzen.ru/volkovacapital" target="_blank" rel="noopener noreferrer"
+                        class="flex h-11 items-center gap-2.5 rounded-full bg-slate-100 hover:bg-navy px-5 text-base font-bold text-navy hover:text-white transition-all duration-200 hover:scale-105 shadow-sm border border-slate-200/50">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 11v5h-2v-5H6v-2h5V6h2v5h5v2h-5Z" />
+                        </svg>
+                        Дзен
+                    </a>
+                    <!-- MAX -->
+                    <a href="https://max.ru/volkovacapital" target="_blank" rel="noopener noreferrer"
+                        class="flex h-11 items-center gap-2.5 rounded-full bg-slate-100 hover:bg-navy px-5 text-base font-bold text-navy hover:text-white transition-all duration-200 hover:scale-105 shadow-sm border border-slate-200/50">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                            <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2.5 16h2v-7l3 5h1l3-5v7h2V6h-2l-3.5 6L8.5 6h-2v12Z" />
+                        </svg>
+                        MAX
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ipkInput1 = document.getElementById('ipk-input');
+            const ipkInput2 = document.getElementById('ipk-input-2');
+            const pensionResult = document.getElementById('pension-result');
+            const tableRows = document.querySelectorAll('#ipk-ranges-body tr');
+
+            const expenseInputs = document.querySelectorAll('.expense-input');
+            const expensesTotal = document.getElementById('expenses-total');
+            const gapCalcResult = document.getElementById('gap-calc-result');
+            const gapValue = document.getElementById('gap-value');
+
+            let currentPension = 0;
+
+            function formatNumber(num) {
+                return num.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function calculatePension(e) {
+                // Get IPK value from the input that triggered the event, or fallback to the other
+                let ipkVal = 0;
+                if (e && e.target) {
+                    ipkVal = parseFloat(e.target.value) || 0;
+                    // Sync the other input
+                    if (e.target === ipkInput1) {
+                        ipkInput2.value = e.target.value;
+                    } else {
+                        ipkInput1.value = e.target.value;
+                    }
+                } else {
+                    ipkVal = parseFloat(ipkInput1.value) || 0;
+                }
+
+                // Pension Formula: Pension = 9584.69 + (IPK * 156.76)
+                currentPension = 9584.69 + (ipkVal * 156.76);
+
+                if (ipkVal > 0) {
+                    pensionResult.textContent = formatNumber(currentPension);
+                } else {
+                    pensionResult.textContent = '9 584,69';
+                    currentPension = 9584.69;
+                }
+
+                // Highlight matching table row
+                tableRows.forEach(row => {
+                    const min = parseFloat(row.getAttribute('data-min'));
+                    const max = parseFloat(row.getAttribute('data-max'));
+                    row.classList.remove('highlighted');
+
+                    if (ipkVal >= min && ipkVal <= max) {
+                        row.classList.add('highlighted');
+                    }
+                });
+
+                // Recalculate gap
+                calculateGap();
+            }
+
+            function calculateGap() {
+                let totalExpenses = 0;
+                expenseInputs.forEach(input => {
+                    totalExpenses += parseFloat(input.value) || 0;
+                });
+
+                if (totalExpenses > 0) {
+                    expensesTotal.textContent = totalExpenses.toLocaleString('ru-RU');
+                    gapCalcResult.style.display = 'flex';
+
+                    const gap = totalExpenses - currentPension;
+                    if (gap > 0) {
+                        gapValue.textContent = totalExpenses > currentPension ? formatNumber(gap) + ' ₽' : '0 ₽';
+                        gapValue.classList.remove('text-green-600', 'bg-green-50', 'border-green-200');
+                        gapValue.classList.add('text-red-600', 'bg-red-50', 'border-red-200');
+                    } else {
+                        gapValue.textContent = '0 ₽ (покрыто)';
+                        gapValue.classList.remove('text-red-600', 'bg-red-50', 'border-red-200');
+                        gapValue.classList.add('text-green-600', 'bg-green-50', 'border-green-200');
+                    }
+                } else {
+                    expensesTotal.textContent = '0';
+                    gapCalcResult.style.display = 'none';
+                }
+            }
+
+            function preventNegativeKeys(e) {
+                if (e.key === '-' || e.key === '+' || e.key === 'e' || e.key === 'E') {
+                    e.preventDefault();
+                }
+            }
+
+            function sanitizeInput(input) {
+                if (input.value !== '') {
+                    let val = parseFloat(input.value);
+                    if (val < 0 || isNaN(val)) {
+                        input.value = Math.abs(val) || 0;
+                    }
+                }
+            }
+
+            ipkInput1.addEventListener('keydown', preventNegativeKeys);
+            ipkInput2.addEventListener('keydown', preventNegativeKeys);
+
+            ipkInput1.addEventListener('input', (e) => {
+                sanitizeInput(ipkInput1);
+                calculatePension(e);
+            });
+            ipkInput2.addEventListener('input', (e) => {
+                sanitizeInput(ipkInput2);
+                calculatePension(e);
+            });
+
+            expenseInputs.forEach(input => {
+                input.addEventListener('keydown', preventNegativeKeys);
+                input.addEventListener('input', (e) => {
+                    sanitizeInput(input);
+                    calculateGap();
+                });
+            });
+
+            // Initial run
+            calculatePension();
+        });
+    </script>
+</body>
+
+</html>
